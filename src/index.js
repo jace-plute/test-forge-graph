@@ -10,7 +10,9 @@ resolver.define("getText", (req) => {
 });
 
 resolver.define("getAllProjects", async (req) => {
+  console.log("start");
   const projectData = await apiUtil.fetchAllProjects();
+  console.log("end");
 
   return projectData;
 });

@@ -127,19 +127,14 @@ function App() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    invoke("getText", { example: "my-invoke-variable" }).then(setData);
+    invoke("getAllProjects", {}).then(setData, (reason) => {
+      console.log("rejected");
+    });
   }, []);
 
-  invoke("getAllProjects", { ex: "hi" }).then(
-    (returnedData) => {
-      console.log("success");
-      console.log(JSON.stringify(returnedData));
-    },
-    (reason) => {
-      console.log("fail");
-      console.log(reason);
-    }
-  );
+  console.log("data :)");
+  //console.log(data);
+  //let thing = await invoke("getAllProjects", { ex: "hi" });
 
   return (
     <div>
