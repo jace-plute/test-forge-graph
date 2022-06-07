@@ -13,3 +13,29 @@ resources:
     path: static/hello-world/build
 app:
   id: ari:cloud:ecosystem::app/d37128cb-1b9e-4a46-8746-a2b0cf049258
+permissions:
+  scopes:
+    - read:issue-meta:jira
+    - read:issue-security-level:jira
+    - read:issue.vote:jira
+    - read:issue.changelog:jira
+    - read:avatar:jira
+    - read:issue:jira
+    - read:status:jira
+    - read:user:jira
+    - read:field-configuration:jira
+    - read:issue-details:jira
+    - read:audit-log:jira
+    - read:issue-type-hierarchy:jira
+    - read:user:jira
+    - read:application-role:jira
+    - read:issue-type:jira
+    - read:project:jira
+    - read:project.property:jira
+    - read:project-category:jira
+    - read:project.component:jira
+    - read:group:jira
+    - read:project-version:jira
+    - read:workflow-scheme:jira
+    - read:workflow:jira
+    - read:issue-type-scheme:jira

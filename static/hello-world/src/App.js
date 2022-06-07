@@ -130,6 +130,12 @@ function App() {
     invoke("getText", { example: "my-invoke-variable" }).then(setData);
   }, []);
 
+  invoke("fetchWorkflowSchemesByProject", { example: 'scheme id i guess'}).then((returnedData) => {
+    console.log(returnedData);
+  }, (reason) => {
+    console.log(reason)
+  });
+
   return (
     <div>
       <div style={{ maxHeight: "500px", maxWidth: "500px" }}>
