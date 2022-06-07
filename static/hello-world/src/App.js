@@ -130,6 +130,17 @@ function App() {
     invoke("getText", { example: "my-invoke-variable" }).then(setData);
   }, []);
 
+  invoke("getAllProjects", { ex: "hi" }).then(
+    (returnedData) => {
+      console.log("success");
+      console.log(JSON.stringify(returnedData));
+    },
+    (reason) => {
+      console.log("fail");
+      console.log(reason);
+    }
+  );
+
   return (
     <div>
       <div style={{ maxHeight: "500px", maxWidth: "500px" }}>
