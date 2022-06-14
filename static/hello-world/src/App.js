@@ -56,12 +56,13 @@ Chart.register(
 );
 
 function thing() {
+  console.log("thing");
   const ctx = document.getElementById("myChart");
   const myChart = new Chart(ctx, {
     type: "line",
     data: {
       labels: [
-        "Sprint 1",
+        "Sprint 13",
         "Sprint 2",
         "Sprint 3",
         "Sprint 4",
@@ -124,8 +125,8 @@ function thing() {
 }
 
 function App() {
+  console.log("ALL PROJECTS");
   const [data, setData] = useState(null);
-
   useEffect(() => {
     invoke("getAllProjects", {}).then(setData, (reason) => {
       console.log("rejected");
@@ -136,6 +137,11 @@ function App() {
   //console.log(data);
   //let thing = await invoke("getAllProjects", { ex: "hi" });
 
+  /*return (
+    <div>
+      {data ? JSON.stringify(data) : 'Loading...'}
+    </div>
+  );*/
   return (
     <div>
       <div style={{ maxHeight: "500px", maxWidth: "500px" }}>
