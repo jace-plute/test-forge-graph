@@ -34,12 +34,17 @@ export const fetchIssuesInProject = async (projectKey) => {
   let startAtIndex = 0;
   let allBlocksOfData = [];
   let data = { issues: [] };
-
+  let today = getDate();
   while (startAtIndex + 50 < totalIssues) {
     const res = await api
       .asUser()
       .requestJira(
-        route`rest/api/3/search?jql=project=${projectKey}&startAt=${startAtIndex}`
+        route`rest/api/3/search?jql=project=${projectKey}
+        %20AND%20resolved
+        %20%3E=%20startOfDay(-120)
+        %20AND%20status=DONE
+        %20ORDER%20BY%20sprint
+        &startAt=${startAtIndex}`
       );
 
     const tempData = await res.json();
@@ -66,4 +71,13 @@ const verifyDataReturnStatus = (data) => {
       `An error has occured: \n\tError: ${data.error}\n\tMessage: ${data.message}`
     );
   }
+};
+
+export const getDate = () => {
+  let today = Date.now();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = today.getFullYear();
+  
+  return mm + '/' + dd + '/' + yyyy;
 };
