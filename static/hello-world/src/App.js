@@ -55,8 +55,12 @@ Chart.register(
   SubTitle
 );
 
-function thing() {
-  console.log("thing");
+function chartBuilder() {
+  let projKey = "JAM";
+  invoke("getAllIssuesInProject", {projectKey: projKey}).then(setData, (reason) => {
+    console.log("rejected");
+  });
+  console.log("Issues: " + data.issues);
   const ctx = document.getElementById("myChart");
   const myChart = new Chart(ctx, {
     type: "line",
@@ -133,20 +137,14 @@ function App() {
     });
   }, []);
 
-  console.log("data :)");
-  //console.log(data);
-  //let thing = await invoke("getAllProjects", { ex: "hi" });
+  console.log("data :)" + data);
+  
 
-  /*return (
-    <div>
-      {data ? JSON.stringify(data) : 'Loading...'}
-    </div>
-  );*/
   return (
     <div>
       <div style={{ maxHeight: "500px", maxWidth: "500px" }}>
         <canvas id="myChart" width="100" height="100"></canvas>
-        {thing()}
+        {chartBuilder()}
       </div>
     </div>
   );
