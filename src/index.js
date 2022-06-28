@@ -18,6 +18,7 @@ resolver.define("getAllProjects", async (req) => {
 });
 
 resolver.define("getAllIssuesInProject", async (req) => {
+  console.log("begin getissues");
   const issues = await apiUtil.fetchIssuesInProject(req.projectKey);
 
   return issues;

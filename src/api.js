@@ -30,41 +30,33 @@ export const fetchAllProjects = async () => {
 };
 
 export const fetchIssuesInProject = async (projectKey) => {
-  if(!projectKey) {
+  if (!projectKey) {
     projectKey = "JAM";
   }
   console.log("proj: " + projectKey);
-  
+
   let totalIssues = 51;
   let startAtIndex = 0;
   let allBlocksOfData = [];
   let data = { issues: [] };
-  let today = getDate();
-  console.log("today: " + today);
   while (startAtIndex + 50 < totalIssues) {
     const res = await api
       .asUser()
       .requestJira(
-        route`rest/api/3/search?jql=project=${projectKey}&startAt=${startAtIndex}`);
-        //%20AND%20resolved
-        //%20%3E=%20startOfDay(-120)
-        //%20AND%20status=DONE
-        //%20ORDER%20BY%20sprint
-        
-      
+        route`/rest/api/3/search?jql=project=JAM%20AND%20resolved%20%3E=%20startOfDay(-120)%20AND%20status=DONE%20ORDER%20BY%20sprint&startAt=${startAtIndex}`
+      );
+
     const tempData = await res.json();
 
     totalIssues = tempData.total;
     verifyDataReturnStatus(tempData);
 
-    allBlocksOfData.push(tempData.values);
+    allBlocksOfData.push(tempData.issues);
     startAtIndex += 50;
   }
 
   allBlocksOfData.forEach((block) => {
-    block.issues.forEach((issue) => {
-      data.issues.push(issue);
-    });
+    data.issues.push(block);
   });
 
   return data;
@@ -77,12 +69,3 @@ const verifyDataReturnStatus = (data) => {
     );
   }
 };
-
-export const getDate = () => {
-  let today = Date.now();
-  //let dd = String(today.getDate()).padStart(2, '0');
-  //let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-  //let yyyy = today.getFullYear();
-  return "2022-04-01";
-  //return yyyy + "-" + mm + "-" + dd;
-}

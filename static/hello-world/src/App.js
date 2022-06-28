@@ -57,9 +57,12 @@ Chart.register(
 
 function chartBuilder() {
   let projKey = "JAM";
-  invoke("getAllIssuesInProject", {projectKey: projKey}).then(setData, (reason) => {
-    console.log("rejected");
-  });
+  invoke("getAllIssuesInProject", { projectKey: projKey }).then(
+    setData,
+    (reason) => {
+      console.log("rejected");
+    }
+  );
   console.log("Issues: " + data.issues);
   const ctx = document.getElementById("myChart");
   const myChart = new Chart(ctx, {
@@ -132,22 +135,23 @@ function App() {
   console.log("ALL PROJECTS");
   const [data, setData] = useState(null);
   useEffect(() => {
-    invoke("getAllProjects", {}).then(setData, (reason) => {
+    invoke("getAllIssuesInProject", {}).then(setData, (reason) => {
       console.log("rejected");
     });
   }, []);
 
   console.log("data :)" + data);
-  
 
   return (
     <div>
       <div style={{ maxHeight: "500px", maxWidth: "500px" }}>
         <canvas id="myChart" width="100" height="100"></canvas>
-        {chartBuilder()}
+        {data ? chartBuilder() : "Loading..."}
       </div>
     </div>
   );
+
+  //return <div>{data ? JSON.stringify(data) : "Loading..."}</div>;
 }
 
 export default App;
